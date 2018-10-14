@@ -10,6 +10,9 @@ WORKDIR /usr/src/app
 # Install dependencies
 RUN npm config set registry http://registry.npmjs.org/
 
+# Install mocha (for tests)
+RUN npm install mocha -g
+
 # Build the app
 RUN npm install
 

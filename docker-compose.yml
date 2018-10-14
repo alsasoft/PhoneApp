@@ -44,11 +44,32 @@ services:
       - MYSQL_DATABASE=challenge
       - MYSQL_USER=challenge
       - MYSQL_PASSWORD=challenge
-#    command: "npm install"
 # Volume used for development tasks, it must be removed in production environments
-    volumes:
-      - .:/usr/src/app
+#    volumes:
+#      - .:/usr/src/app
     expose:
       - 8081
     ports:
       - 8081:8081
+
+  order-service:
+    build: .
+    image: "challenge/backend-service:v1"
+    container_name: "order-service"
+    hostname: "order-service"
+    environment:
+      - DEPLOY_PORT=8082
+      - SERVICE_NAME=order-service
+      - SERVICE_INSTANCE=1
+      - MYSQL_HOST=challenge-mysql
+      - MYSQL_ROOT_PASSWORD=Sfa35Fade4P_as
+      - MYSQL_DATABASE=challenge
+      - MYSQL_USER=challenge
+      - MYSQL_PASSWORD=challenge
+# Volume used for development tasks, it must be removed in production environments
+#    volumes:
+#      - .:/usr/src/app
+    expose:
+      - 8082
+    ports:
+      - 8082:8082

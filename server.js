@@ -7,7 +7,7 @@ try {
 	const GlobalLoggerFactory = require('./logger');
 	const mysqlPool = require('./mysql-pool');
 	const phoneApi = require('./phone-api');
-	//const orderApi = require('./order-api');
+	const orderApi = require('./order-api');
 
 	const deployPort = process.env.DEPLOY_PORT;
 
@@ -34,7 +34,7 @@ try {
 	});
 
 	phoneApi.setServerLogger(logger);
-	//orderApi.setServerLogger(logger);
+	orderApi.setServerLogger(logger);
 
 	app.use(bodyParser.urlencoded({ extended: true }));
 	app.use(bodyParser.json());
@@ -57,7 +57,7 @@ try {
 	app.use('/api', router);
 
 	phoneApi.register(router);
-	//orderApi.register(router);
+	orderApi.register(router);
 
 	app.use(function (req, res, next) {
 		req.reqLoggerFactory.endRequest(res);

@@ -1,0 +1,54 @@
+version: "2"
+
+services:
+  challenge-mysql:
+    image: "mysql:5.7.18"
+    container_name: "challenge-mysql"
+    hostname: "challenge-mysql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=Sfa35Fade4P_as
+      - MYSQL_DATABASE=challenge
+      - MYSQL_USER=challenge
+      - MYSQL_PASSWORD=challenge
+    volumes:
+      - ./current.sql:/docker-entrypoint-initdb.d/model.sql:ro
+    expose:
+      - 3306
+    ports:
+      - 3306:3306
+
+  challenge-phpmyadmin:
+    image: "phpmyadmin/phpmyadmin:4.7"
+    hostname: "challenge-phpmyadmin"
+    container_name: "challenge-phpmyadmin"
+    environment:
+      - SERVICE_NAME=challenge-phpmyadmin
+      - PMA_HOST=challenge-mysql
+      - PMA_PORT=3306
+      - PMA_USER=root
+      - PMA_PASSWORD=Sfa35Fade4P_as
+    ports:
+      - "8080:80"
+
+  phone-service:
+    build: .
+    image: "challenge/backend-service:v1"
+    container_name: "phone-service"
+    hostname: "phone-service"
+    environment:
+      - DEPLOY_PORT=8081
+      - SERVICE_NAME=phone-service
+      - SERVICE_INSTANCE=1
+      - MYSQL_HOST=challenge-mysql
+      - MYSQL_ROOT_PASSWORD=Sfa35Fade4P_as
+      - MYSQL_DATABASE=challenge
+      - MYSQL_USER=challenge
+      - MYSQL_PASSWORD=challenge
+#    command: "npm install"
+# Volume used for development tasks, it must be removed in production environments
+    volumes:
+      - .:/usr/src/app
+    expose:
+      - 8081
+    ports:
+      - 8081:8081

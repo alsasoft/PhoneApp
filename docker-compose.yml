@@ -45,8 +45,8 @@ services:
       - MYSQL_USER=challenge
       - MYSQL_PASSWORD=challenge
 # Volume used for development tasks, it must be removed in production environments
-    volumes:
-      - .:/usr/src/app
+#    volumes:
+#      - .:/usr/src/app
     expose:
       - 8081
     ports:
@@ -67,8 +67,8 @@ services:
       - MYSQL_USER=challenge
       - MYSQL_PASSWORD=challenge
 # Volume used for development tasks, it must be removed in production environments
-    volumes:
-      - .:/usr/src/app
+#    volumes:
+#      - .:/usr/src/app
     expose:
       - 8082
     ports:
